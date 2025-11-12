@@ -3,6 +3,7 @@ import "../styles/components/Topnav.css";
 import axios from "axios";
 import { FiLogOut, FiBell, FiMoon, FiSun } from 'react-icons/fi'
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function TopNav() {
     const [darkMode, setDarkMode] = useState(false);
@@ -33,7 +34,14 @@ export default function TopNav() {
             const token = localStorage.getItem('token')
 
             if (!token) {
-                alert('Signin first')
+                // alert('Signin first')
+                toast.error('Signin First', {
+                    position: "top-center",
+                    style: {
+                        background: "red",
+                        color: "#fff",
+                    },
+                });
                 navigate('/signin')
             }
 
@@ -51,14 +59,35 @@ export default function TopNav() {
                 setUserName(response.data.name)
             } catch (error) {
                 if (error.response?.status === 401) {
-                    setError(alert('Session expired. Please sign in again.'))
+                    setError ('Session expired. Please sign in again.')
                     localStorage.removeItem('token')
+                    toast.error('Session expired. Please sign in again.', {
+                        position: "top-center",
+                        style: {
+                            background: "red",
+                            color: "#fff",
+                        },
+                    });
                     navigate('/signin')
                 } else if (error.response?.data?.message) {
-                    setError(alert(error.response.data.message))
+                    setError(error.response.data.message)
+                    toast.error(error.response.data.message, {
+                        position: "top-center",
+                        style: {
+                            background: "red",
+                            color: "#fff",
+                        },
+                    });
                     navigate('/signin')
                 } else {
-                    setError(alert('Error loading users info'))
+                    setError('Error loading users info')
+                    toast.error('Error loading users info', {
+                        position: "top-center",
+                        style: {
+                            background: "red",
+                            color: "#fff",
+                        },
+                    });
                     navigate('/signin')
                 }
             }
@@ -80,7 +109,14 @@ export default function TopNav() {
             const token = localStorage.getItem("token");
 
             if (!token) {
-                alert("No user logged in!");
+                alert();
+                toast.error("No user logged in!", {
+                    position: "top-center",
+                    style: {
+                        background: "red",
+                        color: "#fff",
+                    },
+                });
                 return;
             }
 
@@ -98,12 +134,26 @@ export default function TopNav() {
                 // alert("✅ Logged out successfully!");
                 localStorage.removeItem("token");
                 setLoggedOut(true);
+                toast.success('Logged out successfully!', {
+                    position: "top-center",
+                    style: {
+                        background: "green",
+                        color: "#fff",
+                    },
+                });
                 navigate("/signin");
             }
         } catch {
             // console.error(error);
             setError("Logout failed. Please try again later.");
             // alert("Logout failed. Please try again later.");
+            toast.error('Logout failed. Please try again later.', {
+                position: "top-center",
+                style: {
+                    background: "green",
+                    color: "#fff",
+                },
+            });
         } finally {
             setLoading(false);
         }
@@ -112,6 +162,7 @@ export default function TopNav() {
 
     return (
         <header className="topnav">
+            <Toaster position="top-center" />
             <div className="user-section">
                 {/* <img
                     src={usersImg}
@@ -124,16 +175,16 @@ export default function TopNav() {
 
             <div className="topnav-actions">
                 <button className="theme-toggle" onClick={toggleTheme}>
-                    {darkMode ? <FiSun/> : <FiMoon/>}
+                    {darkMode ? <FiSun /> : <FiMoon />}
                 </button>
-                <button className="notify-btn"><FiBell/></button>
+                <button className="notify-btn"><FiBell /></button>
                 <button
                     type="button"
                     style={btnStyle}
                     onClick={logout}
                     disabled={loading}
                 >
-                    {loading ? <FiLogOut /> : <FiLogOut/>}
+                    {loading ? <FiLogOut /> : <FiLogOut />}
                 </button>
             </div>
         </header>

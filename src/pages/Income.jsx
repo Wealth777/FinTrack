@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { FaPencilAlt, FaSearch, FaTrashAlt } from 'react-icons/fa'
 import '../styles/pages/income.css';
+import { toast, Toaster } from 'react-hot-toast';
 
 export default function Income() {
   const [incomes, setIncomes] = useState([]);
@@ -33,10 +34,24 @@ export default function Income() {
       } else {
         // console.error('Unexpected response:', response.data);
         setIncomes([]);
+        toast.error('No income records found', {
+          duration: 4000,
+          style: {
+            background: "red",
+            color: "#fff",
+          },
+        });
       }
     } catch (err) {
       // console.error('Error fetching incomes:', err);
       setIncomes([]);
+      toast.error(`Failed to load incomes: ${err.response?.data?.message || err.message}`, {
+        duration: 4000,
+        style: {
+          background: "red",
+          color: "#fff",
+        },
+      });
     }
   };
 
@@ -72,12 +87,26 @@ export default function Income() {
             }
           }
         );
+        toast.success("Income updated successfully", {
+          position: "top-center",
+          style: {
+            background: "green",
+            color: "#fff",
+          },
+        });
       } else {
         await axios.post('https://fintrack-api-9u9p.onrender.com/api/incomes', formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
           }
+        });
+        toast.success("Income added successfully", {
+          position: "top-center",
+          style: {
+            background: "green",
+            color: "#fff",
+          },
         });
       }
 
@@ -87,23 +116,78 @@ export default function Income() {
       setFormData({ title: '', amount: '', source: '', date: '', description: '' });
     } catch (err) {
       // console.error('Error saving income:', err);
+      toast.error(`Error saving income: ${err.response?.data?.message || err.message}`, {
+        duration: 4000,
+        style: {
+          background: "red",
+          color: "#fff",
+        },
+      });
     }
   };
 
 
-  const handleDelete = async slug => {
-    try {
-      const confirmDelete = window.confirm('Are you sure you want to delete this income');
-      if (!confirmDelete) return;
+  // const handleDelete = async slug => {
+  //   try {
+  //     const confirmDelete = window.confirm('Are you sure you want to delete this income');
+  //     if (!confirmDelete) return;
 
-      await axios.delete(`https://fintrack-api-9u9p.onrender.com/api/incomes/${slug}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+  //     await axios.delete(`https://fintrack-api-9u9p.onrender.com/api/incomes/${slug}`, {
+  //       headers: { Authorization: `Bearer ${token}` }
+  //     });
 
-      fetchIncomes();
-    } catch (err) {
-      // console.error('Error deleting income:', err);
-    }
+  //     fetchIncomes();
+  //     toast.success("Income deleted successfully", {
+  //       position: "top-center",
+  //       style: {
+  //         background: "green",
+  //         color: "#fff",
+  //       },
+  //     });
+  //   } catch (err) {
+  //     // console.error('Error deleting income:', err);
+  //     toast.error(`Error deleting income: ${err.response?.data?.message || err.message}`, {
+  //       duration: 4000,
+  //       style: {
+  //         background: "red",
+  //         color: "#fff",
+  //       },
+  //     });
+  //   }
+  // };
+
+  const handleDelete = async (slug) => {
+    toast((t) => (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', }}>
+        <p>Are you sure you want to delete this income?</p>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <button
+            style={{ background: 'red', color: '#fff', padding: '5px 10px', borderRadius: '4px' }}
+            onClick={async () => {
+              try {
+                await axios.delete(`https://fintrack-api-9u9p.onrender.com/api/incomes/${slug}`, {
+                  headers: { Authorization: `Bearer ${token}` },
+                });
+                toast.dismiss(t.id);
+                toast.success('Income deleted successfully');
+                fetchIncomes();
+              } catch (err) {
+                toast.dismiss(t.id);
+                toast.error('Error deleting income');
+              }
+            }}
+          >
+            Yes
+          </button>
+          <button
+            style={{ background: '#555', color: '#fff', padding: '5px 10px', borderRadius: '4px' }}
+            onClick={() => toast.dismiss(t.id)}
+          >
+            No
+          </button>
+        </div>
+      </div>
+    ), { duration: 5000 });
   };
 
 
@@ -121,6 +205,7 @@ export default function Income() {
 
   return (
     <main className="income-page">
+      <Toaster position="top-center" />
       <section className="income-header">
         <h1>Incomes</h1>
         <button className='btnothe' onClick={() => setModalOpen(true)}>
@@ -175,10 +260,10 @@ export default function Income() {
                   <td>{income.description}</td>
                   <td>
                     <button className='btnStyle' onClick={() => openEditModal(income)}>
-                      <FaPencilAlt/>
+                      <FaPencilAlt />
                     </button>
                     <button className='btnStyle' onClick={() => handleDelete(income.slug)}>
-                      <FaTrashAlt/>
+                      <FaTrashAlt />
                     </button>
                   </td>
                 </tr>

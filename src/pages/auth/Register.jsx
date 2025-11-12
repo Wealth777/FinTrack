@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../styles/authstyle/Registrer.css";
 import { motion } from "framer-motion";
-import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaLock, FaEyeSlash, FaEye } from "react-icons/fa";
 import axios from "axios";
 import registerIllustration from "../../assets/404 Error Page not Found with people connecting a plug.gif";
 import { Link, useNavigate } from 'react-router-dom';
@@ -131,7 +131,7 @@ export default function Register() {
                   className="toggle-password"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? "🙈" : "👁️"}
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </span>
               </div>
 
@@ -148,7 +148,7 @@ export default function Register() {
                   className="toggle-password"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
-                  {showConfirmPassword ? "🙈" : "👁️"}
+                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                 </span>
               </div>
 
