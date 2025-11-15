@@ -1,0 +1,112 @@
+.budget-page {
+    padding: 2rem;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+.budget-head {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 2rem;
+}
+
+.budget-page h1 {
+    /* text-align: center; */
+    color: #333;
+}
+
+.budget-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.budget-table th,
+.budget-table td {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.budget-table th {
+    background-color: #18ff37;
+    color: #000;
+}
+
+.budget-table tr:hover {
+    background-color: rgba(24, 255, 55, 0.1);
+    cursor: pointer;
+}
+
+#NoBud {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+    padding: 2rem 0;
+    font-weight: 600;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 2rem;
+    width: 400px;
+    max-width: 90%;
+    border-radius: 8px;
+}
+
+.modal-content h2 {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.modal-content textarea {
+    resize: vertical;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-blue {
+    width: auto;
+    max-width: 100px;
+    padding: 8px;
+    background: linear-gradient(180deg, #15ff00 0%, #18ff37 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: .8rem;
+    transition: background 0.3s ease;
+}
+
+.btn-blue:hover {
+    opacity: 0.5;
+}

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import '../styles/pages/expences.css';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
+import { FaPencilAlt, FaSearch, FaTrashAlt } from 'react-icons/fa'
 
 export default function Espenses() {
+  const [isLoading, setIsLoading] = useState(false)
   const [expenses, setExpenses] = useState([]);
   const [filter, setFilter] = useState({ source: '', minAmount: '', maxAmount: '' });
   const [modalOpen, setModalOpen] = useState(false);
@@ -13,6 +15,7 @@ export default function Espenses() {
   const token = localStorage.getItem('token')
 
   const fetchExpenses = async () => {
+    setIsLoading(true)
     try {
       const response = await axios.get('https://fintrack-api-9u9p.onrender.com/api/expenses', {
         headers: {
@@ -42,6 +45,8 @@ export default function Espenses() {
           color: "#fff",
         },
       });
+    } finally {
+      setIsLoading(false)
     }
   };
 
@@ -64,6 +69,7 @@ export default function Espenses() {
             }
           }
         );
+
         toast.success("Expense updated successfully", {
           position: "top-center",
           style: {
@@ -80,7 +86,7 @@ export default function Espenses() {
             }
           }
         );
-        toast.success("Expense updated successfully", {
+        toast.success("Expense added successfully", {
           position: "top-center",
           style: {
             background: "green",
@@ -91,7 +97,8 @@ export default function Espenses() {
 
       fetchExpenses();
       setModalOpen(false);
-      setFormData({ title: '', description: '', date: '', source: '', amount: '' })
+      setEditExpense(null)
+      setFormData({ title: '', amount: '', source: '', date: '', description: '' })
     } catch (err) {
       // console.log(err)
       toast.error(`Error saving expenses: ${err.response?.data?.message || err.message}`, {
@@ -107,7 +114,7 @@ export default function Espenses() {
   const handleDelete = async (slug) => {
     toast((t) => (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', }}>
-        <p>Are you sure you want to delete this income?</p>
+        <p>Are you sure you want to delete this expense?</p>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <button
             style={{ background: 'red', color: '#fff', padding: '5px 10px', borderRadius: '4px' }}
@@ -117,11 +124,11 @@ export default function Espenses() {
                   headers: { Authorization: `Bearer ${token}` },
                 });
                 toast.dismiss(t.id);
-                toast.success('Income deleted successfully');
+                toast.success('Expense deleted successfully');
                 fetchExpenses();
               } catch (err) {
                 toast.dismiss(t.id);
-                toast.error('Error deleting income');
+                toast.error(`Error deleting income: ${err.response?.data?.message || err.message}`);
               }
             }}
           >
@@ -139,73 +146,95 @@ export default function Espenses() {
   };
 
 
+  const openEditModal = expense => {
+    setEditExpense(expense);
+    setFormData({
+      title: expense.title || '',
+      amount: expense.amount || '',
+      source: expense.source || '',
+      date: expense.date ? expense.date.slice(0, 10) : '',
+      description: expense.description || ''
+    });
+    setModalOpen(true);
+  };
+
   return (
     <main className="expenses-page">
       <Toaster position='top-center' />
-      <section className="expenses-header">
-        <h1>Expenses</h1>
-        <button className="btn-blue" onClick={() => setModalOpen(true)}>
-          Add Expense
-        </button>
-      </section>
 
-      <section className="expenses-filters">
-        <input
-          type="text"
-          placeholder="Source"
-          value={filter.source}
-          onChange={e => setFilter({ ...filter, source: e.target.value })}
-        />
-        <input
-          type="number"
-          placeholder="Min Amount"
-          value={filter.minAmount}
-          onChange={e => setFilter({ ...filter, minAmount: e.target.value })}
-        />
-        <input
-          type="number"
-          placeholder="Max Amount"
-          value={filter.maxAmount}
-          onChange={e => setFilter({ ...filter, maxAmount: e.target.value })}
-        />
-        <button className="btn-blue">Filter</button>
-      </section>
+      {isLoading ? (
+        <div className="income-loading-state">
+          <div className="income-spinner" />
+          <p>Loading incomes...</p>
+        </div>
+      ) : (
+        <>
+          <section className="expenses-header">
+            <h1>Expenses</h1>
+            <button className="btn-blue" onClick={() => setModalOpen(true)}>
+              Add Expense
+            </button>
+          </section>
 
-      <section className="expenses-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Title</th>
-              <th>Source</th>
-              <th>Amount</th>
-              <th>Description</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {expenses.length > 0 ? (
-              expenses.map(expense => (
-                <tr key={expense.slug}>
-                  <td>{expense.date}</td>
-                  <td>{expense.title}</td>
-                  <td>{expense.source}</td>
-                  <td>{expense.amount}</td>
-                  <td>{expense.description}</td>
-                  <td>
-                    <button className="btn-blue">Edit</button>
-                    <button className="btn-blue" onClick={()=> handleDelete(expense.slug)}>Delete</button>
-                  </td>
+          <section className="expenses-filters">
+            <input
+              type="text"
+              placeholder="Source"
+              value={filter.source}
+              onChange={e => setFilter({ ...filter, source: e.target.value })}
+            />
+            <input
+              type="number"
+              placeholder="Min Amount"
+              value={filter.minAmount}
+              onChange={e => setFilter({ ...filter, minAmount: e.target.value })}
+            />
+            <input
+              type="number"
+              placeholder="Max Amount"
+              value={filter.maxAmount}
+              onChange={e => setFilter({ ...filter, maxAmount: e.target.value })}
+            />
+            <button className="btn-blue"><FaSearch /> Search</button>
+          </section>
+
+          <section className="expenses-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Title</th>
+                  <th>Source</th>
+                  <th>Amount</th>
+                  <th>Description</th>
+                  <th>Actions</th>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="6">No expense records found.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </section>
+              </thead>
+              <tbody>
+                {expenses.length > 0 ? (
+                  expenses.map(expense => (
+                    <tr key={expense.slug}>
+                      <td>{expense.date}</td>
+                      <td>{expense.title}</td>
+                      <td>{expense.source}</td>
+                      <td>{expense.amount}</td>
+                      <td>{expense.description}</td>
+                      <td>
+                        <button className="btn-edit" onClick={() => openEditModal(expense)}><FaPencilAlt /></button>
+                        <button className="btn-edit" onClick={() => handleDelete(expense.slug)}><FaTrashAlt /></button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="6">No expense records found.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </section>
+        </>
+      )}
 
       {modalOpen && (
         <div className="modal">
@@ -252,7 +281,10 @@ export default function Espenses() {
               />
               <div className="modal-actions">
                 <button type="submit" className="btn-blue">{editExpense ? 'Update' : 'Add'}</button>
-                <button type="button" className="btn-blue" onClick={() => setModalOpen(false)}>Cancel</button>
+                <button type="button" className="btn-blue" onClick={() => {
+                  setModalOpen(false);
+                  setEditExpense(null);
+                }}>Cancel</button>
               </div>
             </form>
           </div>

@@ -19,18 +19,32 @@
 }
 
 .btn-blue {
+  width: auto;
+  max-width: 100px;
+  padding: 8px;
   background: linear-gradient(180deg, #15ff00 0%, #18ff37 100%);
+  color: white;
   border: none;
-  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: .8rem;
+  transition: background 0.3s ease;
+}
+
+.btn-edit {
+  background: none;
+  border: none;
+  color: #000;
   padding: 8px 14px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
   transition: background 0.3s ease;
+  margin-left: 20px;
 }
 
-.btn-blue:hover {
-  opacity: 0.85;
+.btn-blue:hover, .btn-edit:hover{
+  opacity: 0.5;
 }
 
 .expenses-filters {
@@ -60,6 +74,19 @@
   border-bottom: 1px solid #ddd;
 }
 
+.expenses-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.expenses-table th,
+.expenses-table td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+
 .expenses-table th {
   background-color: #e0f7e5;
   color: #111;
@@ -67,6 +94,14 @@
 
 .expenses-table tr:hover {
   background-color: #f1f1f1;
+}
+
+.expenses-table td[colspan="6"] {
+  text-align: center;
+  color: #666;
+  padding: 2rem 0;
+  font-style: italic;
+  font-weight: 600;
 }
 
 .modal {

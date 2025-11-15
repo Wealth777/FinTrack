@@ -1,10 +1,12 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { FaPencilAlt, FaSearch, FaTrashAlt } from 'react-icons/fa'
 import '../styles/pages/income.css';
 import { toast, Toaster } from 'react-hot-toast';
 
 export default function Income() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [originalIncomes, setOriginalIncomes] = useState([]);
   const [incomes, setIncomes] = useState([]);
   const [filter, setFilter] = useState({ source: '', minAmount: '', maxAmount: '' });
   const [modalOpen, setModalOpen] = useState(false);
@@ -20,7 +22,8 @@ export default function Income() {
   const token = localStorage.getItem('token');
 
 
-  const fetchIncomes = async () => {
+  const fetchIncomes = useCallback(async () => {
+    setIsLoading(true)
     try {
       const response = await axios.get('https://fintrack-api-9u9p.onrender.com/api/incomes', {
         headers: {
@@ -31,9 +34,11 @@ export default function Income() {
 
       if (response.data && Array.isArray(response.data)) {
         setIncomes(response.data);
+        setOriginalIncomes(response.data);
       } else {
         // console.error('Unexpected response:', response.data);
         setIncomes([]);
+        setOriginalIncomes([]);
         toast.error('No income records found', {
           duration: 4000,
           style: {
@@ -52,20 +57,28 @@ export default function Income() {
           color: "#fff",
         },
       });
+    } finally{
+      setIsLoading(false)
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     fetchIncomes();
-  }, []);
+  }, [fetchIncomes]);
 
 
   const handleFilter = () => {
-    let filtered = [...incomes];
-    if (filter.source) filtered = filtered.filter(i => i.source.toLowerCase().includes(filter.source.toLowerCase()));
+    // Always filter from the original full list to avoid cumulative filters
+    let filtered = Array.isArray(originalIncomes) ? [...originalIncomes] : [];
+    if (filter.source) filtered = filtered.filter(i => (i.source || '').toLowerCase().includes(filter.source.toLowerCase()));
     if (filter.minAmount) filtered = filtered.filter(i => Number(i.amount) >= Number(filter.minAmount));
     if (filter.maxAmount) filtered = filtered.filter(i => Number(i.amount) <= Number(filter.maxAmount));
     setIncomes(filtered);
+  };
+
+  const resetFilter = () => {
+    setFilter({ source: '', minAmount: '', maxAmount: '' });
+    setIncomes(originalIncomes || []);
   };
 
 
@@ -173,7 +186,7 @@ export default function Income() {
                 fetchIncomes();
               } catch (err) {
                 toast.dismiss(t.id);
-                toast.error('Error deleting income');
+                toast.error(`Error deleting income: ${err.response?.data?.message || err.message}`);
               }
             }}
           >
@@ -206,76 +219,90 @@ export default function Income() {
   return (
     <main className="income-page">
       <Toaster position="top-center" />
-      <section className="income-header">
-        <h1>Incomes</h1>
-        <button className='btnothe' onClick={() => setModalOpen(true)}>
-          Add Income
-        </button>
-      </section>
+      {isLoading ? (
+        <div className="income-loading-state">
+          <div className="income-spinner" />
+          <p>Loading incomes...</p>
+        </div>
+      ) : (
+        <>
+          <section className="income-header">
+            <h1>Incomes</h1>
+            <div style={{ display: 'flex', gap: 12 }}>
+              <button className="btnothe" onClick={() => { setModalOpen(true); setEditIncome(null); }}>
+                Add Income
+              </button>
+            </div>
+          </section>
 
-      <section className="income-filters">
-        <input
-          type="text"
-          placeholder="Source"
-          value={filter.source}
-          onChange={e => setFilter({ ...filter, source: e.target.value })}
-        />
-        <input
-          type="number"
-          placeholder="Min Amount"
-          value={filter.minAmount}
-          onChange={e => setFilter({ ...filter, minAmount: e.target.value })}
-        />
-        <input
-          type="number"
-          placeholder="Max Amount"
-          value={filter.maxAmount}
-          onChange={e => setFilter({ ...filter, maxAmount: e.target.value })}
-        />
-        <button className='btnStyles' onClick={handleFilter}>
-          <FaSearch />
-        </button>
-      </section>
+          <section className="income-filters">
+            <input
+              type="text"
+              placeholder="Source"
+              value={filter.source}
+              onChange={e => setFilter({ ...filter, source: e.target.value })}
+            />
+            <input
+              type="number"
+              placeholder="Min Amount"
+              value={filter.minAmount}
+              onChange={e => setFilter({ ...filter, minAmount: e.target.value })}
+            />
+            <input
+              type="number"
+              placeholder="Max Amount"
+              value={filter.maxAmount}
+              onChange={e => setFilter({ ...filter, maxAmount: e.target.value })}
+            />
+            <button className='btnothe' onClick={handleFilter}>
+              <FaSearch /> Search
+            </button>
+            <button className='btnStyles' onClick={resetFilter}>
+              Reset
+            </button>
+          </section>
 
-      <section className="income-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Title</th>
-              <th>Source</th>
-              <th>Amount</th>
-              <th>Description</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {incomes.length > 0 ? (
-              incomes.map(income => (
-                <tr key={income.slug}>
-                  <td>{income.date}</td>
-                  <td>{income.title}</td>
-                  <td>{income.source}</td>
-                  <td>{income.amount}</td>
-                  <td>{income.description}</td>
-                  <td>
-                    <button className='btnStyle' onClick={() => openEditModal(income)}>
-                      <FaPencilAlt />
-                    </button>
-                    <button className='btnStyle' onClick={() => handleDelete(income.slug)}>
-                      <FaTrashAlt />
-                    </button>
-                  </td>
+          <section className="income-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Title</th>
+                  <th>Source</th>
+                  <th>Amount</th>
+                  <th>Description</th>
+                  <th>Actions</th>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="6">No income records found.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </section>
+              </thead>
+              <tbody>
+                {incomes.length > 0 ? (
+                  incomes.map(income => (
+                    <tr key={income.slug || income._id || Math.random()}>
+                      <td data-label="Date">{income.date ? new Date(income.date).toLocaleDateString() : '-'}</td>
+                      <td data-label="Title">{income.title || '-'}</td>
+                      <td data-label="Source">{income.source || '-'}</td>
+                      <td data-label="Amount">{income.amount != null ? Number(income.amount).toLocaleString() : '-'}</td>
+                      <td data-label="Description">{income.description || '-'}</td>
+                      <td>
+                        <button className='btnStyle' onClick={() => openEditModal(income)} title="Edit">
+                          <FaPencilAlt />
+                        </button>
+                        <button className='btnStyle' onClick={() => handleDelete(income.slug)} title="Delete">
+                          <FaTrashAlt />
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="6">No income records found.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </section>
+        </>
+      )}
 
       {modalOpen && (
         <div className="modal">

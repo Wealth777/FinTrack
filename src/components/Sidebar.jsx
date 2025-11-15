@@ -18,7 +18,6 @@ export default function SideNav({isExpanded, setIsExpanded}) {
     { name: "Expenses", path: "/expenses", icon: <FaWallet /> },
     { name: "Reports", path: "/report", icon: <FaChartLine /> },
     { name: "Notifications", path: "/notifications", icon: <FaBell /> },
-    { name: "Settings", path: "/settings", icon: <FaCog /> },
   ];
 
   const sidebarVariants = {
