@@ -55,7 +55,7 @@ function App() {
                   <Route path="report" element={<Reports />} />
                   <Route path="notifications" element={<Notifications />} />
                   <Route path="settings" element={<Settings />} />
-                  <Route path="*" element={<NotFound />} />
+                  {/* <Route path="*" element={<NotFound />} /> */}
                 </Routes>
               </div>
             </div>

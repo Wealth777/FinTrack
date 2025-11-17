@@ -83,7 +83,7 @@ export default function Budget_Food() {
 
         toast.success('Food budget updated', {
           style: { background: 'green', color: '#fff' }
-        });
+        }, { duration: 4000 });
       } else {
         await axios.post(
           'https://fintrack-api-9u9p.onrender.com/api/budgets',
@@ -98,7 +98,7 @@ export default function Budget_Food() {
 
         toast.success('Food budget added', {
           style: { background: 'green', color: '#fff' }
-        });
+        }, { duration: 4000 });
       }
 
       setModalOpen(false);

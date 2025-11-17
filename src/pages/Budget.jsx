@@ -79,7 +79,7 @@ export default function Budget() {
 
         toast.success('Budget updated', {
           style: { background: "green", color: "#fff" }
-        });
+        }, { duration: 4000 });
       } else {
         await axios.post(
           'https://fintrack-api-9u9p.onrender.com/api/budgets',
@@ -94,7 +94,7 @@ export default function Budget() {
 
         toast.success('Budget added', {
           style: { background: "green", color: "#fff" }
-        });
+        }, { duration: 4000 });
       }
 
       setModalOpen(false);
@@ -128,11 +128,11 @@ export default function Budget() {
                 );
 
                 toast.dismiss(t.id);
-                toast.success('Budget deleted');
+                toast.success('Budget deleted', { duration: 4000 });
                 fetchBudgets();
               } catch (err) {
                 toast.dismiss(t.id);
-                toast.error(`Delete failed: ${err.response?.data?.message || err.message}`);
+                toast.error(`Delete failed: ${err.response?.data?.message || err.message}`, { duration: 4000 });
               }
             }}
           >

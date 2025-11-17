@@ -299,7 +299,7 @@ export default function Budget_Academics() {
             )
             setBudgets(res.data)
         } catch (err) {
-            toast.error('Error fetching budgets')
+            toast.error('Error fetching budgets', { duration: 4000 })
         } finally {
             setIsLoading(false)
         }
@@ -336,7 +336,7 @@ export default function Budget_Academics() {
                         }
                     }
                 )
-                toast.success('Budget updated')
+                toast.success('Budget updated',)
             } else {
                 await axios.put(
                     `https://fintrack-api-9u9p.onrender.com/api/budgets/${slug}`,
@@ -348,7 +348,7 @@ export default function Budget_Academics() {
                         }
                     }
                 )
-                toast.success('Budget added')
+                toast.success('Budget added', { duration: 4000 })
             }
 
             setModalOpen(false)
@@ -369,7 +369,7 @@ export default function Budget_Academics() {
             toast.success('Budget deleted')
             fetchBudgets()
         } catch (err) {
-            toast.error('Error deleting budget')
+            toast.error('Error deleting budget', { duration: 4000 })
         }
 
     }

@@ -107,7 +107,7 @@ export default function Income() {
             background: "green",
             color: "#fff",
           },
-        });
+        }, { duration: 4000 });
       } else {
         await axios.post('https://fintrack-api-9u9p.onrender.com/api/incomes', formData, {
           headers: {
@@ -121,7 +121,7 @@ export default function Income() {
             background: "green",
             color: "#fff",
           },
-        });
+        }, { duration: 4000 });
       }
 
       fetchIncomes();

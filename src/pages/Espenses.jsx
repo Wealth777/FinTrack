@@ -77,7 +77,7 @@ export default function Espenses() {
             background: "green",
             color: "#fff",
           },
-        });
+        }, { duration: 4000 });
       } else {
         await axios.post(`https://fintrack-api-9u9p.onrender.com/api/expenses`, formData,
           {
@@ -93,7 +93,7 @@ export default function Espenses() {
             background: "green",
             color: "#fff",
           },
-        });
+        }, { duration: 4000 });
       }
 
       fetchExpenses();
@@ -125,11 +125,11 @@ export default function Espenses() {
                   headers: { Authorization: `Bearer ${token}` },
                 });
                 toast.dismiss(t.id);
-                toast.success('Expense deleted successfully');
+                toast.success('Expense deleted successfully', { duration: 4000 });
                 fetchExpenses();
               } catch (err) {
                 toast.dismiss(t.id);
-                toast.error(`Error deleting expense: ${err.response?.data?.message || err.message}`);
+                toast.error(`Error deleting expense: ${err.response?.data?.message || err.message}`, { duration: 4000 });
               }
             }}
           >

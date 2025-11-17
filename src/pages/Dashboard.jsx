@@ -55,7 +55,7 @@ export default function Dashboard() {
         balance: res.data.balance,
       });
     } catch (err) {
-      toast.error(`Error loading summary: ${err.response?.data?.message || err.message}`);
+      toast.error(`Error loading summary: ${err.response?.data?.message || err.message}`, { duration: 4000 });
     } finally {
       setIsLoading(false)
     }
@@ -74,7 +74,7 @@ export default function Dashboard() {
       setMonthlyData(res.data.monthly || []);
       setRecent(res.data.recent || []);
     } catch (err) {
-      toast.error(`Error loading dashbord: ${err.response?.data?.message || err.message}`);
+      toast.error(`Error loading dashbord: ${err.response?.data?.message || err.message}`, { duration: 4000 });
     }
   };
 

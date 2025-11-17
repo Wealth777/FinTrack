@@ -67,8 +67,8 @@ export default function Profile() {
         },
       });
       toast.success("Profile updated successfully", {
-        style: { background: "green", color: "#fff" },
-      });
+        style: { background: "green", color: "#fff" }, 
+      }, { duration: 4000 });
       setModalOpen(false);
       fetchUser();
     } catch (err) {
