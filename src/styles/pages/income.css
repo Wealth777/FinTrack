@@ -116,7 +116,6 @@
   max-width: 500px;
 }
 
-/* Responsive: make table scrollable on small screens */
 @media (max-width: 600px) {
   .income-table table thead {
     display: none;
@@ -148,6 +147,87 @@
     margin-bottom: 6px;
     font-size: 0.9rem;
   }
+}
+
+@media (max-width: 768px) {
+    .income-page {
+        padding: 10px; 
+        gap: 15px;
+    }
+
+    .income-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .income-header h1 {
+        font-size: 24px;
+    }
+    
+    .btnothe {
+        width: 100%;
+        max-width: none;
+        padding: 10px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .income-filters {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .income-filters input {
+        width: 100%; 
+        box-sizing: border-box;
+        padding: 10px 12px;
+    }
+    
+    .income-filters .btnothe {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 15px;
+        border-radius: 8px;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+    }
+    
+    .modal-actions .btnothe {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .income-header h1 {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .income-table td[data-label="Actions"] {
+        /* text-align: center;  */
+        display: flex;
+    }
+
+    .btnStyle, .btnStyles {
+        display: block;
+        width: 100%;
+        margin-bottom: 5px;
+        margin-top: 20px;
+        max-width: none;
+        margin-left: -30px;
+        padding: 8px; 
+    }
 }
 
 .modal-content form {

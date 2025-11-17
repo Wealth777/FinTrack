@@ -1,9 +1,11 @@
 import React from 'react'
+import Loader from '../../components/Loader'
 
 export default function ForgotPassword() {
+
   return (
     <div>
-      <h1>Forgot password</h1>
+      <Loader/>
     </div>
   )
 }

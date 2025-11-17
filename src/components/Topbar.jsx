@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function TopNav() {
-    const [darkMode, setDarkMode] = useState(false);
+    // const [darkMode, setDarkMode] = useState(false);
     const [userName, setUserName] = useState('')
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('')
@@ -60,7 +60,7 @@ export default function TopNav() {
                 setUserName(response.data.name)
             } catch (error) {
                 if (error.response?.status === 401) {
-                    setError ('Session expired. Please sign in again.')
+                    setError('Session expired. Please sign in again.')
                     localStorage.removeItem('token')
                     toast.error('Session expired. Please sign in again.', {
                         position: "top-center",
@@ -97,10 +97,10 @@ export default function TopNav() {
         fetchUser();
     }, [])
 
-    const toggleTheme = () => {
-        setDarkMode(!darkMode);
-        document.body.classList.toggle("dark");
-    };
+    // const toggleTheme = () => {
+    //     setDarkMode(!darkMode);
+    //     document.body.classList.toggle("dark");
+    // };
 
     const logout = async () => {
         try {
@@ -175,10 +175,10 @@ export default function TopNav() {
             </div>
 
             <div className="topnav-actions">
-                <button className="theme-toggle" onClick={toggleTheme}>
+                {/* <button className="theme-toggle" onClick={toggleTheme}>
                     {darkMode ? <FiSun /> : <FiMoon />}
-                </button>
-                <button className="notify-btn"><FiBell /></button>
+                </button> */}
+                {/* <button className="notify-btn"><FiBell /></button> */}
                 <button
                     type="button"
                     style={btnStyle}

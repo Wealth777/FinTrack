@@ -1,34 +1,93 @@
 .topnav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid #ddd;
-  background: var(--bg);
-  color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #ddd;
+    background: var(--bg);
+    color: var(--text);
 }
 
 .user-section {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .user-img {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
 }
 
 .topnav-actions button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-left: 1rem;
-  font-size: 1.2rem;
-  transition: 0.2s;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 1rem;
+    font-size: 1.2rem;
+    transition: 0.2s;
 }
 
 .topnav-actions button:hover {
-  transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+@media (max-width: 1024px) {
+    .topnav {
+        padding: 0.8rem 1rem;
+        /* Slightly reduced padding */
+    }
+
+    .user-section {
+        gap: 0.4rem;
+        /* Slightly tighter gap */
+    }
+}
+
+@media (max-width: 600px) {
+    .topnav {
+        padding: 0.75rem 0.6rem;
+        /* Minimal padding for edge-to-edge look */
+    }
+
+    /* Reduce image size */
+    .user-img {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* Reduce spacing around user name/info */
+    .user-section {
+        gap: 0.4rem;
+        /* If there is text next to the image, consider reducing its font size here too */
+    }
+
+    /* Reduce action icon size and margin */
+    .topnav-actions button {
+        margin-left: 0.5rem;
+        /* Reduced margin between buttons */
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 400px) {
+
+    /* If the full navigation bar is still too wide, 
+       we ensure padding is minimal. */
+    .topnav {
+        padding: 0.5rem;
+    }
+
+    /* Further reduce image size */
+    .user-img {
+        width: 30px;
+        height: 30px;
+    }
+
+    /* Ensure actions are tight */
+    .topnav-actions button {
+        margin-left: 0.4rem;
+        font-size: 0.9rem;
+    }
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -7,8 +7,17 @@ import {
 } from "react-icons/fa";
 import "../styles/components/Sidenav.css";
 
-export default function SideNav({isExpanded, setIsExpanded}) {
+export default function SideNav({ isExpanded, setIsExpanded }) {
 
+  useEffect(() => {
+    if (window.innerWidth <= 768) {
+      setIsExpanded(false);
+    }
+
+    if (window.innerWidth <= 900){
+      setIsExpanded(false)
+    }
+  }, []);
 
   const links = [
     { name: "Dashboard", path: "/dashboard", icon: <FaChartPie /> },
@@ -16,8 +25,8 @@ export default function SideNav({isExpanded, setIsExpanded}) {
     { name: "Income", path: "/income", icon: <FaMoneyBillWave /> },
     { name: "Budget", path: "/budget", icon: <FaChartBar /> },
     { name: "Expenses", path: "/expenses", icon: <FaWallet /> },
-    { name: "Reports", path: "/report", icon: <FaChartLine /> },
-    { name: "Notifications", path: "/notifications", icon: <FaBell /> },
+    // { name: "Reports", path: "/report", icon: <FaChartLine /> },
+    // { name: "Notifications", path: "/notifications", icon: <FaBell /> },
   ];
 
   const sidebarVariants = {
@@ -50,7 +59,7 @@ export default function SideNav({isExpanded, setIsExpanded}) {
           className="toggle-btn"
           onClick={() => setIsExpanded(!isExpanded)}
         >
-          {isExpanded ?  <FaTimes/> : <FaBars />}
+          {isExpanded ? <FaTimes /> : <FaBars />}
         </button>
       </div>
 

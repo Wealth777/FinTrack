@@ -13,7 +13,6 @@
 }
 
 .budget-page h1 {
-    /* text-align: center; */
     color: #333;
 }
 
@@ -32,8 +31,8 @@
 }
 
 .budget-table th {
-    background-color: #18ff37;
-    color: #000;
+    background: linear-gradient(180deg, #15ff00 0%, #24a836 100%);
+    color: #fff;
 }
 
 .budget-table tr:hover {
@@ -49,18 +48,29 @@
     font-weight: 600;
 }
 
-/* Modal Styles */
-.modal {
+.budget-modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    padding: 0;
+    z-index: 9999;
+}
+
+.budget-modal-content {
+    background: #fff;
+    width: 600px;
+    height: auto;
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 25px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    animation: popup 0.25s ease;
+    overflow-y: auto;
 }
 
 .modal-content {
@@ -76,8 +86,8 @@
     text-align: center;
 }
 
-.modal-content input,
-.modal-content textarea {
+.budget-modal-content input,
+.budget-modal-content textarea {
     width: 100%;
     padding: 0.6rem;
     margin-bottom: 1rem;
@@ -85,7 +95,7 @@
     border-radius: 4px;
 }
 
-.modal-content textarea {
+.budget-modal-content textarea {
     resize: vertical;
 }
 
@@ -109,4 +119,50 @@
 
 .btn-blue:hover {
     opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+    .budget-table {
+        border: none;
+        overflow: auto;
+    }
+
+    .budget-table thead {
+        display: none;
+    }
+
+    .budget-table tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #fff;
+        font-size: 0.8rem;
+    }
+
+    .budget-table td {
+        display: block;
+        text-align: right;
+        padding: 8px 15px;
+        border-bottom: 1px solid #eee;
+        position: relative;
+    }
+
+    .budget-table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        color: #555;
+    }
+
+    .budget-table td:last-child {
+        border-bottom: none;
+        /* text-align: center; */
+    }
+
+    .budget-modal-content {
+        width: 70%;
+        height: auto;
+        max-height: 90%;
+    }
 }

@@ -1,0 +1,61 @@
+.err-container {
+width: 100vw;
+height: 100vh;
+background: #f5f7fb;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 20px;
+}
+
+.err-box {
+text-align: center;
+background: #ffffff;
+padding: 40px;
+border-radius: 18px;
+box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+max-width: 450px;
+width: 100%;
+}
+
+.err-logo {
+width: 70px;
+margin-bottom: 20px;
+}
+
+.err-illustration {
+width: 100%;
+max-width: 250px;
+margin: 0 auto 20px auto;
+display: block;
+}
+
+.err-title {
+font-size: 28px;
+font-weight: 700;
+margin-bottom: 10px;
+color: #1a1a1a;
+}
+
+.err-text {
+font-size: 15px;
+color: #555;
+margin-bottom: 25px;
+}
+
+.err-btn {
+display: inline-flex;
+gap: 8px;
+align-items: center;
+padding: 10px 20px;
+background: #0066ff;
+color: #fff;
+border-radius: 10px;
+font-size: 15px;
+text-decoration: none;
+transition: 0.3s;
+}
+
+.err-btn:hover {
+background: #004fcc;
+}

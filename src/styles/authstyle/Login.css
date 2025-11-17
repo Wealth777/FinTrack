@@ -16,7 +16,7 @@
     width: 90%;
     max-width: 1000px;
     height: 520px;
-    background: linear-gradient(180deg, #15ff00 0%, #18ff37 100%) ;
+    background: linear-gradient(180deg, #15ff00 0%, #18ff37 100%);
     /* background: white; */
     border-radius: 25px;
 
@@ -34,10 +34,10 @@
     max-width: 1000px;
     border-bottom-right-radius: 25px;
     background: linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
-     border-top-left-radius: 50% 20%;
-     border-top-right-radius: 50% 20%;
-     z-index: 5;
-     margin-top: 29px;
+    border-top-left-radius: 50% 20%;
+    border-top-right-radius: 50% 20%;
+    z-index: 5;
+    margin-top: 29px;
 }
 
 .logpat {
@@ -128,7 +128,7 @@
 
 .login-btn:hover {
     background: #15b606;
-  color: black;
+    color: black;
 }
 
 .error-box {

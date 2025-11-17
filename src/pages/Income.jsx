@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { FaPencilAlt, FaSearch, FaTrashAlt } from 'react-icons/fa'
 import '../styles/pages/income.css';
 import { toast, Toaster } from 'react-hot-toast';
+import Loader from '../components/Loader';
 
 export default function Income() {
   const [isLoading, setIsLoading] = useState(true);
@@ -57,7 +58,7 @@ export default function Income() {
           color: "#fff",
         },
       });
-    } finally{
+    } finally {
       setIsLoading(false)
     }
   }, [token]);
@@ -220,10 +221,7 @@ export default function Income() {
     <main className="income-page">
       <Toaster position="top-center" />
       {isLoading ? (
-        <div className="income-loading-state">
-          <div className="income-spinner" />
-          <p>Loading incomes...</p>
-        </div>
+        <Loader/>
       ) : (
         <>
           <section className="income-header">
@@ -283,7 +281,7 @@ export default function Income() {
                       <td data-label="Source">{income.source || '-'}</td>
                       <td data-label="Amount">{income.amount != null ? Number(income.amount).toLocaleString() : '-'}</td>
                       <td data-label="Description">{income.description || '-'}</td>
-                      <td>
+                      <td data-label="Actions" className='now'>
                         <button className='btnStyle' onClick={() => openEditModal(income)} title="Edit">
                           <FaPencilAlt />
                         </button>

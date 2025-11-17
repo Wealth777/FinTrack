@@ -3,6 +3,7 @@ import '../styles/pages/expences.css';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaPencilAlt, FaSearch, FaTrashAlt } from 'react-icons/fa'
+import Loader from '../components/Loader';
 
 export default function Espenses() {
   const [isLoading, setIsLoading] = useState(false)
@@ -10,7 +11,7 @@ export default function Espenses() {
   const [filter, setFilter] = useState({ source: '', minAmount: '', maxAmount: '' });
   const [modalOpen, setModalOpen] = useState(false);
   const [editExpense, setEditExpense] = useState(null);
-  const [formData, setFormData] = useState({ title: '', amount: '', source: '', date: '', description: '' });
+  const [formData, setFormData] = useState({ title: '', amount: '', date: '', description: '' });
 
   const token = localStorage.getItem('token')
 
@@ -98,7 +99,7 @@ export default function Espenses() {
       fetchExpenses();
       setModalOpen(false);
       setEditExpense(null)
-      setFormData({ title: '', amount: '', source: '', date: '', description: '' })
+      setFormData({ title: '', amount: '', date: '', description: '' })
     } catch (err) {
       // console.log(err)
       toast.error(`Error saving expenses: ${err.response?.data?.message || err.message}`, {
@@ -128,7 +129,7 @@ export default function Espenses() {
                 fetchExpenses();
               } catch (err) {
                 toast.dismiss(t.id);
-                toast.error(`Error deleting income: ${err.response?.data?.message || err.message}`);
+                toast.error(`Error deleting expense: ${err.response?.data?.message || err.message}`);
               }
             }}
           >
@@ -163,10 +164,7 @@ export default function Espenses() {
       <Toaster position='top-center' />
 
       {isLoading ? (
-        <div className="income-loading-state">
-          <div className="income-spinner" />
-          <p>Loading incomes...</p>
-        </div>
+        <Loader/>
       ) : (
         <>
           <section className="expenses-header">
@@ -177,12 +175,12 @@ export default function Espenses() {
           </section>
 
           <section className="expenses-filters">
-            <input
+            {/* <input
               type="text"
               placeholder="Source"
               value={filter.source}
               onChange={e => setFilter({ ...filter, source: e.target.value })}
-            />
+            /> */}
             <input
               type="number"
               placeholder="Min Amount"
@@ -204,7 +202,6 @@ export default function Espenses() {
                 <tr>
                   <th>Date</th>
                   <th>Title</th>
-                  <th>Source</th>
                   <th>Amount</th>
                   <th>Description</th>
                   <th>Actions</th>
@@ -214,12 +211,11 @@ export default function Espenses() {
                 {expenses.length > 0 ? (
                   expenses.map(expense => (
                     <tr key={expense.slug}>
-                      <td>{expense.date}</td>
-                      <td>{expense.title}</td>
-                      <td>{expense.source}</td>
-                      <td>{expense.amount}</td>
-                      <td>{expense.description}</td>
-                      <td>
+                      <td data-label="Date">{expense.date}</td>
+                      <td data-label="Title">{expense.title}</td>
+                      <td data-label="Amount">{expense.amount}</td>
+                      <td data-label="Description">{expense.description}</td>
+                      <td data-label="Actions">
                         <button className="btn-edit" onClick={() => openEditModal(expense)}><FaPencilAlt /></button>
                         <button className="btn-edit" onClick={() => handleDelete(expense.slug)}><FaTrashAlt /></button>
                       </td>
@@ -227,7 +223,7 @@ export default function Espenses() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="6">No expense records found.</td>
+                    <td colSpan="5">No expense records found.</td>
                   </tr>
                 )}
               </tbody>

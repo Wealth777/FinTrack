@@ -14,6 +14,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import Loader from "../components/Loader";
 
 ChartJS.register(
   CategoryScale,
@@ -116,10 +117,7 @@ export default function Dashboard() {
       <Toaster position="top-center" />
 
       {isLoading ? (
-        <div className="income-loading-state">
-          <div className="income-spinner" />
-          <p>Loading incomes...</p>
-        </div>
+        <Loader />
       ) : (
         <>
           {/* Summary Cards */}

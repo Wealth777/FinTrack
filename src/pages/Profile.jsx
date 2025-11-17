@@ -4,12 +4,13 @@ import { Toaster, toast } from "react-hot-toast";
 import { FaPencilAlt, FaLock, FaUserCircle, FaSave, FaRegTimesCircle } from 'react-icons/fa'
 import "../styles/pages/Profile.css";
 import imgg from '../assets/404 Error Page not Found with people connecting a plug.gif'
+import Loader from "../components/Loader";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
+    fullName: "",
     email: "",
     profileImage: "",
   });
@@ -25,7 +26,7 @@ export default function Profile() {
       });
       setUser(response.data);
       setFormData({
-        name: response.data.name || "",
+        fullName: response.data.name || "",
         email: response.data.email || "",
         profileImage: response.data.profileImage || "",
       });
@@ -59,7 +60,7 @@ export default function Profile() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await axios.put("https://fintrack-api-9u9p.onrender.com/api/profile", formData, {
+      await axios.post("https://fintrack-api-9u9p.onrender.com/api/profile", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -68,8 +69,8 @@ export default function Profile() {
       toast.success("Profile updated successfully", {
         style: { background: "green", color: "#fff" },
       });
-      fetchUser();
       setModalOpen(false);
+      fetchUser();
     } catch (err) {
       toast.error(`Update failed: ${err.response?.data?.message || err.message}`, {
         duration: 4000,
@@ -86,11 +87,11 @@ export default function Profile() {
           {/* Profile Header Card */}
           <div className="profile-card">
             <div className="profile-header-bg"></div>
-            
+
             <div className="profile-content">
               <div className="avatar-wrapper">
                 <img
-                  src={imgg || "/default-avatar.png"}
+                  src={user.profileImage || "/default-avatar.png"}
                   alt="Profile"
                   className="profile-avatar"
                 />
@@ -99,12 +100,12 @@ export default function Profile() {
 
               <div className="profile-info">
                 <h1 className="profile-name">{user.name}</h1>
-                
+
                 <div className="info-section">
                   <div className="info-item">
                     <span className="info-label">Email:</span>
                     <span className="info-value">{user.email}</span>
-                  </div>          
+                  </div>
                 </div>
 
                 <button className="edit-btn" onClick={() => setModalOpen(true)}>
@@ -124,7 +125,7 @@ export default function Profile() {
                 <p>Active</p>
               </div>
             </div>
-            
+
             <div className="stat-card">
               <div className="stat-icon"><FaLock /></div>
               <div className="stat-content">
@@ -135,10 +136,7 @@ export default function Profile() {
           </div>
         </div>
       ) : (
-        <div className="loading-state">
-          <div className="spinner"></div>
-          <p>Loading profile...</p>
-        </div>
+        <Loader/>
       )}
 
       {modalOpen && (
@@ -157,7 +155,7 @@ export default function Profile() {
                   placeholder="Enter your full name"
                   value={formData.fullName}
                   onChange={handleChange}
-                  required
+                  // required
                 />
               </div>
 
@@ -176,9 +174,9 @@ export default function Profile() {
               <div className="form-group">
                 <label>Profile Picture</label>
                 <div className="image-upload-wrapper">
-                  <input 
-                    type="file" 
-                    accept="image/*" 
+                  <input
+                    type="file"
+                    accept="image/*"
                     onChange={handleImageUpload}
                     id="image-input"
                   />
@@ -187,10 +185,10 @@ export default function Profile() {
                   </label>
                   {formData.profileImage && (
                     <div className="preview-wrapper">
-                      <img 
-                        src={formData.profileImage} 
-                        alt="Preview" 
-                        className="preview-image" 
+                      <img
+                        src={formData.profileImage}
+                        alt="Preview"
+                        className="preview-image"
                       />
                     </div>
                   )}
@@ -198,7 +196,7 @@ export default function Profile() {
               </div>
 
               <div className="modal-actions">
-                <button 
+                <button
                   type="button"
                   className="cancel-btn"
                   onClick={() => setModalOpen(false)}
