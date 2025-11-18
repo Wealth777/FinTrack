@@ -4,7 +4,7 @@ import "../../styles/authstyle/Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
-// import loginIllustration from "../../assets/react.svg"; // Add your demo illustration
+import loginIllustration from "../../assets/Login-amico.svg"; // Add your demo illustration
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
@@ -71,7 +71,7 @@ export default function Login() {
         >
           {/* <div className="logpat"></div> */}
           <div className="illustration">
-
+              <img src={loginIllustration} alt="Login Illustration" />
           </div>
 
           <div className="form-section">

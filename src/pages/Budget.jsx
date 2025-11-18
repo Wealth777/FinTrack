@@ -276,43 +276,9 @@ export default function Budget() {
                 )}
               </tbody>
 
-
-              {/* <tbody>
-  {budgets.map((bud) => (
-    <tr key={bud.id} className="budget-row">
-      
-      <td data-label="Title">
-        <div className="card-title">{bud.title}</div>
-      </td>
-
-      <td data-label="Details">
-        <div className="card-description">{bud.details}</div>
-      </td>
-
-      <td data-label="Amount">
-        <div className="card-amount">₦{Number(bud.amount).toLocaleString()}</div>
-      </td>
-
-      <td data-label="Month">{bud.month}</td>
-
-      <td data-label="Actions" className="actions-td">
-        <button className="icon-btn" onClick={() => openEdit(bud)}>
-          <FaPencilAlt size={16} color="#2563eb" />
-        </button>
-
-        <button className="icon-btn" onClick={() => deleteBudget(bud.id)}>
-          <FaTrashAlt size={16} color="red" />
-        </button>
-      </td>
-
-    </tr>
-  ))}
-</tbody> */}
-
             </table>
             <div className="quick-links">
               <Link to="/budget/food" className="btn-link">Food Budget</Link>
-              {/* <Link to="/budget/academics" className="btn-link">Category Budget</Link> */}
             </div>
           </div>
         </>

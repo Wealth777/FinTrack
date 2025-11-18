@@ -35,8 +35,8 @@ export default function Dashboard() {
     totalExpenses: 0,
     balance: 0,
   });
-  const [monthlyData, setMonthlyData] = useState([]);
-  const [recent, setRecent] = useState([]);
+  // const [monthlyData, setMonthlyData] = useState([]);
+  // const [recent, setRecent] = useState([]);
 
 
   const fetchSummary = async () => {
@@ -62,55 +62,55 @@ export default function Dashboard() {
   };
 
   // Fetch /dashboard
-  const fetchDashboard = async () => {
-    try {
-      const res = await axios.get(
-        "https://fintrack-api-9u9p.onrender.com/api/dashboard",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+  // const fetchDashboard = async () => {
+  //   try {
+  //     const res = await axios.get(
+  //       "https://fintrack-api-9u9p.onrender.com/api/dashboard",
+  //       {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       }
+  //     );
 
-      setMonthlyData(res.data.monthly || []);
-      setRecent(res.data.recent || []);
-    } catch (err) {
-      toast.error(`Error loading dashbord: ${err.response?.data?.message || err.message}`, { duration: 4000 });
-    }
-  };
+  //     setMonthlyData(res.data.monthly || []);
+  //     setRecent(res.data.recent || []);
+  //   } catch (err) {
+  //     toast.error(`Error loading dashbord: ${err.response?.data?.message || err.message}`, { duration: 4000 });
+  //   }
+  // };
 
   useEffect(() => {
     fetchSummary();
-    fetchDashboard();
+    // fetchDashboard();
   }, []);
 
   // Prepare chart
-  const chartLabels = monthlyData.map(m => m.month);
-  const chartValues = monthlyData.map(m => m.total);
+  // const chartLabels = monthlyData.map(m => m.month);
+  // const chartValues = monthlyData.map(m => m.total);
 
-  const chartData = {
-    labels: chartLabels,
-    datasets: [
-      {
-        label: "Monthly Spending",
-        data: chartValues,
-        borderColor: "#18ff37",
-        backgroundColor: "rgba(24,255,55,0.2)",
-        tension: 0.4,
-      },
-    ],
-  };
+  // const chartData = {
+  //   labels: chartLabels,
+  //   datasets: [
+  //     {
+  //       label: "Monthly Spending",
+  //       data: chartValues,
+  //       borderColor: "#18ff37",
+  //       backgroundColor: "rgba(24,255,55,0.2)",
+  //       tension: 0.4,
+  //     },
+  //   ],
+  // };
 
-  const chartOptions = {
-    responsive: true,
-    plugins: {
-      legend: { position: "top", labels: { color: "#000" } },
-      title: { display: true, text: "Monthly Spending", color: "#000" },
-    },
-    scales: {
-      x: { ticks: { color: "#000" } },
-      y: { ticks: { color: "#000" } },
-    },
-  };
+  // const chartOptions = {
+  //   responsive: true,
+  //   plugins: {
+  //     legend: { position: "top", labels: { color: "#000" } },
+  //     title: { display: true, text: "Monthly Spending", color: "#000" },
+  //   },
+  //   scales: {
+  //     x: { ticks: { color: "#000" } },
+  //     y: { ticks: { color: "#000" } },
+  //   },
+  // };
 
   return (
     <main className="dashboard-page">
@@ -139,12 +139,12 @@ export default function Dashboard() {
           </section>
 
           {/* Chart Section */}
-          <section className="chart-section">
+          {/* <section className="chart-section">
             <Line data={chartData} options={chartOptions} />
-          </section>
+          </section> */}
 
           {/* Recent Activity */}
-          <section className="recent-activities">
+          {/* <section className="recent-activities">
             <h2>Recent Activities</h2>
 
             <table>
@@ -172,7 +172,7 @@ export default function Dashboard() {
                 ))}
               </tbody>
             </table>
-          </section>
+          </section> */}
         </>
       )
       }

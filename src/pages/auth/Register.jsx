@@ -3,7 +3,7 @@ import "../../styles/authstyle/Registrer.css";
 import { motion } from "framer-motion";
 import { FaUser, FaEnvelope, FaLock, FaEyeSlash, FaEye } from "react-icons/fa";
 import axios from "axios";
-import registerIllustration from "../../assets/404 Error Page not Found with people connecting a plug.gif";
+import registerIllustration from "../../assets/Sign up.gif";
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Register() {
