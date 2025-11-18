@@ -219,7 +219,8 @@ export default function Income() {
 
   return (
     <main className="income-page">
-      <Toaster position="top-center" />
+      <Toaster position="top-center" toastOptions={{duration: 4000}} />
+
       {isLoading ? (
         <Loader/>
       ) : (

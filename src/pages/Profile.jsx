@@ -3,7 +3,6 @@ import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import { FaPencilAlt, FaLock, FaUserCircle, FaSave, FaRegTimesCircle } from 'react-icons/fa'
 import "../styles/pages/Profile.css";
-import imgg from '../assets/404 Error Page not Found with people connecting a plug.gif'
 import Loader from "../components/Loader";
 
 export default function Profile() {
@@ -81,7 +80,8 @@ export default function Profile() {
 
   return (
     <main className="profile-page">
-      <Toaster position="top-center" />
+      <Toaster position="top-center" toastOptions={{duration: 4000}} />
+
       {user ? (
         <div className="profile-container">
           {/* Profile Header Card */}

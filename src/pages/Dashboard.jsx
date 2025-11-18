@@ -114,7 +114,7 @@ export default function Dashboard() {
 
   return (
     <main className="dashboard-page">
-      <Toaster position="top-center" />
+    <Toaster position="top-center" toastOptions={{duration: 4000}} />
 
       {isLoading ? (
         <Loader />

@@ -17,7 +17,7 @@ import Espenses from './pages/Espenses'
 import Profile from './pages/Profile'
 import Budget_Food from './pages/Budget_Food'
 import NotFound from './pages/NotFound'
-import Budget_Academics from './pages/Budget_Academics'
+// import Budget_Academics from './pages/Budget_Academics'
 
 function App() {
   const [isExpanded, setIsExpanded] = useState(true)
@@ -50,7 +50,7 @@ function App() {
                   <Route path="income" element={<Income />} />
                   <Route path="budget" element={<Budget />} />
                   <Route path="budget/food" element={<Budget_Food />} />
-                  <Route path="budget/academics" element={<Budget_Academics />} />
+                  {/* <Route path="budget/academics" element={<Budget_Academics />} /> */}
                   <Route path="expenses" element={<Espenses />} />
                   <Route path="report" element={<Reports />} />
                   <Route path="notifications" element={<Notifications />} />

@@ -141,10 +141,10 @@ export default function Budget_Food() {
   return (
     <>
       <main className="budget-page">
-        <Toaster />
+        <Toaster position="top-center" toastOptions={{ duration: 4000 }} />
 
         {isLoading ? (
-          <Loader/>
+          <Loader />
         ) : (
           <>
             <div className="budget-head">
@@ -204,7 +204,7 @@ export default function Budget_Food() {
               </tbody>
             </table>
             <Link to={'/budget'}>
-                <button className='btn-editt' >Go to bugets</button>
+              <button className='btn-editt' >Go to bugets</button>
             </Link>
           </>
         )}
