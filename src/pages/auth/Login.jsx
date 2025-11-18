@@ -76,7 +76,7 @@ export default function Login() {
 
           <div className="form-section">
             <h2>Welcome</h2>
-            <p>Login to access your account.</p>
+            <p>Login to access your account</p>
 
             {error && <div className="error-box">{error}</div>}
 
