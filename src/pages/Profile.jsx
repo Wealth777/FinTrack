@@ -7,12 +7,12 @@ import Loader from "../components/Loader";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    profileImage: "",
-  });
+  // const [modalOpen, setModalOpen] = useState(false);
+  // const [formData, setFormData] = useState({
+  //   fullName: "",
+  //   email: "",
+  //   profileImage: "",
+  // });
 
   const token = localStorage.getItem("token");
 
@@ -24,11 +24,11 @@ export default function Profile() {
         },
       });
       setUser(response.data);
-      setFormData({
-        fullName: response.data.name || "",
-        email: response.data.email || "",
-        profileImage: response.data.profileImage || "",
-      });
+      // setFormData({
+      //   fullName: response.data.name || "",
+      //   email: response.data.email || "",
+      //   profileImage: response.data.profileImage || "",
+      // });
     } catch (err) {
       toast.error(`Error loading profile: ${err.response?.data?.message || err.message}`, {
         duration: 4000,
@@ -41,60 +41,64 @@ export default function Profile() {
     fetchUser();
   }, []);
 
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  function getInitial(name) {
+    if (!name) return "";
+    return name.trim().charAt(0).toUpperCase();
+  }
 
-  const handleImageUpload = e => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setFormData({ ...formData, profileImage: reader.result });
-    };
-    reader.readAsDataURL(file);
-  };
+  // const handleChange = e => {
+  //   const { name, value } = e.target;
+  //   setFormData({ ...formData, [name]: value });
+  // };
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    try {
-      await axios.post("https://fintrack-api-9u9p.onrender.com/api/profile", formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-      toast.success("Profile updated successfully", {
-        style: { background: "green", color: "#fff" }, 
-      }, { duration: 4000 });
-      setModalOpen(false);
-      fetchUser();
-    } catch (err) {
-      toast.error(`Update failed: ${err.response?.data?.message || err.message}`, {
-        duration: 4000,
-        style: { background: "red", color: "#fff" },
-      });
-    }
-  };
+  // const handleImageUpload = e => {
+  //   const file = e.target.files[0];
+  //   if (!file) return;
+  //   const reader = new FileReader();
+  //   reader.onloadend = () => {
+  //     setFormData({ ...formData, profileImage: reader.result });
+  //   };
+  //   reader.readAsDataURL(file);
+  // };
+
+  // const handleSubmit = async e => {
+  //   e.preventDefault();
+  //   try {
+  //     await axios.post("https://fintrack-api-9u9p.onrender.com/api/profile", formData, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     toast.success("Profile updated successfully", {
+  //       style: { background: "green", color: "#fff" }, 
+  //     }, { duration: 4000 });
+  //     setModalOpen(false);
+  //     fetchUser();
+  //   } catch (err) {
+  //     toast.error(`Update failed: ${err.response?.data?.message || err.message}`, {
+  //       duration: 4000,
+  //       style: { background: "red", color: "#fff" },
+  //     });
+  //   }
+  // };
 
   return (
     <main className="profile-page">
-      <Toaster position="top-center" toastOptions={{duration: 4000}} />
+      <Toaster position="top-center" toastOptions={{ duration: 4000 }} />
 
       {user ? (
         <div className="profile-container">
-          {/* Profile Header Card */}
           <div className="profile-card">
             <div className="profile-header-bg"></div>
 
             <div className="profile-content">
               <div className="avatar-wrapper">
-                <img
-                  src={user.profileImage || "/default-avatar.png"}
-                  alt="Profile"
-                  className="profile-avatar"
-                />
+                {user.profileImage ? (
+                  <img src={user.profileImage} alt="Profile" className="profile-avatar" />
+                ) : (
+
+                  <div className="auto-avatar"> {getInitial(user.name)} </div>)} <div className="avatar-border"></div>
                 <div className="avatar-border"></div>
               </div>
 
@@ -107,16 +111,10 @@ export default function Profile() {
                     <span className="info-value">{user.email}</span>
                   </div>
                 </div>
-
-                <button className="edit-btn" onClick={() => setModalOpen(true)}>
-                  <span className="btn-icon"><FaPencilAlt /></span>
-                  Edit Profile
-                </button>
               </div>
             </div>
           </div>
 
-          {/* Additional Info Cards */}
           <div className="profile-stats">
             <div className="stat-card">
               <div className="stat-icon"><FaUserCircle /></div>
@@ -136,10 +134,10 @@ export default function Profile() {
           </div>
         </div>
       ) : (
-        <Loader/>
+        <Loader />
       )}
 
-      {modalOpen && (
+      {/* {modalOpen && (
         <div className="modal-overlay" onClick={() => setModalOpen(false)}>
           <div className="modal" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
@@ -210,7 +208,7 @@ export default function Profile() {
             </form>
           </div>
         </div>
-      )}
+      )} */}
     </main>
   );
 }

@@ -1,0 +1,69 @@
+/* ===== DARK THEME COLOR SCHEME ===== */
+/* Dark theme using black background, white text, green accents */
+
+/* Light Theme (Default) */
+:root,
+html {
+  --primary-bg: #ffffff;
+  --secondary-bg: #f5f5f5;
+  --card-bg: #ffffff;
+  --text-primary: #000000;
+  --text-secondary: #666666;
+  --border-color: #ddd;
+  --button-bg: #15ff00;
+  --button-bg-hover: #15b606;
+  --accent-green: #15ff00;
+  --accent-green-light: #18ff37;
+  --sidebar-gradient: linear-gradient(180deg, #15ff00 0%, #18ff37 100%);
+  --shadow: rgba(0, 0, 0, 0.1);
+  --table-hover: rgba(24, 255, 55, 0.1);
+  --input-bg: #f8f9fb;
+}
+
+/* Dark Theme */
+html[data-theme="dark"],
+[data-theme="dark"] {
+  --primary-bg: #0a0a0a;
+  --secondary-bg: #1a1a1a;
+  --card-bg: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --border-color: #333333;
+  --button-bg: #15ff00;
+  --button-bg-hover: #00d922;
+  --accent-green: #15ff00;
+  --accent-green-light: #18ff37;
+  --sidebar-gradient: linear-gradient(180deg, #15ff00 0%, #18ff37 100%);
+  --shadow: rgba(0, 0, 0, 0.4);
+  --table-hover: rgba(21, 255, 0, 0.15);
+  --input-bg: #2a2a2a;
+}
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+#root {
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

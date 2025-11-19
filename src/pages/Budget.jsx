@@ -224,7 +224,7 @@ export default function Budget() {
             </div>
           </div>
 
-          <div className="budget-list-wrap">
+          <div className="income-table">
             <table className="budget-table">
               <thead>
                 <tr>
@@ -250,19 +250,19 @@ export default function Budget() {
                       </td>
                       <td className="actions-td" data-label="Actions">
                         <button
-                          className="icon-btn"
+                          className="btnStyle"
                           onClick={() => openEditModal(b)}
                           title="Edit"
                         >
-                          <FaPencilAlt color='#2563eb' />
+                          <FaPencilAlt />
                         </button>
 
                         <button
-                          className="icon-btn"
+                          className="btnDelete"
                           onClick={() => confirmDelete(b.slug)}
                           title="Delete"
                         >
-                          <FaTrashAlt color="red" />
+                          <FaTrashAlt  />
                         </button>
                       </td>
                     </tr>
@@ -327,7 +327,6 @@ export default function Budget() {
                     setFormData(prev => ({ ...prev, limit: formatted }))
                   }}
                   onFocus={e => {
-                    // show raw number while editing
                     const n = parseToNumber(e.target.value)
                     setFormData(prev => ({ ...prev, limit: n ? String(n) : '' }))
                   }}

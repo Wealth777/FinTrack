@@ -1,8 +1,341 @@
 .budget-page {
     padding: 2rem;
-    background-color: #f5f5f5;
+    background-color: var(--secondary-bg);
+    color: var(--text-primary);
     min-height: 100vh;
     font-family: Arial, sans-serif;
+    transition: all 0.3s ease;
+}
+
+.budget-head {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 2rem;
+}
+
+.budget-page h1 {
+    color: var(--text-primary) !important;
+}
+
+.budget-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 6px var(--shadow);
+}
+
+.budget-table th,
+.budget-table td {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.budget-table th {
+    background: linear-gradient(180deg, #15ff00 0%, #24a836 100%);
+    color: #000;
+    font-weight: 600;
+}
+
+.budget-table tr:hover {
+    background-color: var(--table-hover);
+    cursor: pointer;
+}
+
+#NoBud {
+    text-align: center;
+    font-style: italic;
+    color: var(--text-secondary);
+    padding: 2rem 0;
+    font-weight: 600;
+}
+
+.budget-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    z-index: 9999;
+}
+
+.budget-modal-content {
+    background: var(--card-bg);
+    width: 600px;
+    height: auto;
+    border-radius: 14px;
+    box-shadow: 0 4px 20px var(--shadow);
+    padding: 25px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    animation: popup 0.25s ease;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+}
+
+.modal-content {
+    background: var(--card-bg);
+    padding: 2rem;
+    width: 400px;
+    max-width: 90%;
+    border-radius: 8px;
+    color: var(--text-primary);
+}
+
+.modal-content h2 {
+    margin-bottom: 1rem;
+    text-align: center;
+    color: var(--text-primary);
+}
+
+.budget-modal-content input,
+.budget-modal-content textarea {
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    font-family: inherit;
+}
+
+.budget-modal-content input:focus,
+.budget-modal-content textarea:focus {
+    border-color: var(--accent-green);
+    outline: none;
+    box-shadow: 0 0 8px rgba(21, 255, 0, 0.2);
+}
+
+.budget-modal-content textarea {
+    resize: vertical;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btn-blue {
+    width: auto;
+    max-width: 100px;
+    padding: 8px;
+    background: linear-gradient(180deg, #15ff00 0%, #18ff37 100%);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: .8rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-blue:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(21, 255, 0, 0.3);
+}
+
+.head-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-cancel {
+    background: var(--input-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+    background: var(--accent-green);
+    color: #000;
+    border-color: var(--accent-green);
+}
+
+.budget-list-wrap {
+    overflow-x: auto;
+    background: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 6px 18px var(--shadow);
+    padding: 8px;
+}
+
+.budget-row:hover {
+    background: var(--table-hover);
+}
+
+.actions-td {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--text-primary);
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 6px 8px;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    color: var(--accent-green);
+}
+
+.budget-form {
+    display: grid;
+    gap: 12px;
+}
+
+.budget-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.budget-form input[type="text"],
+.budget-form input[type="month"],
+.budget-form select {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    outline: none;
+    font-size: 14px;
+    background: var(--input-bg);
+    color: var(--text-primary);
+}
+
+.budget-form input[type="text"]:focus,
+.budget-form input[type="month"]:focus,
+.budget-form select:focus {
+    border-color: var(--accent-green);
+    box-shadow: 0 4px 10px rgba(21, 255, 0, 0.15);
+}
+
+.quick-links {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    float: right !important;
+}
+
+.btn-link {
+    background: var(--accent-green) !important;
+    border: 1px solid var(--accent-green);
+    color: var(--text-primary);
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-link:hover {
+    background: transparent !important;
+    border-color: var(--accent-green);
+    color: var(--text-primary);
+}
+
+@media (max-width: 600px) {
+  .budget-page {
+    padding: 1rem;
+  }
+
+  .budget-table thead {
+    display: none;
+  }
+
+  .budget-table,
+  .budget-table tbody,
+  .budget-table tr,
+  .budget-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .budget-table tr {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 10px var(--shadow);
+  }
+
+  .budget-table td {
+    border: none;
+    padding: 6px 0;
+    color: var(--text-primary);
+  }
+
+  .budget-table td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+  }
+
+  .card-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .card-amount {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+  }
+
+  .actions-td {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  .budget-modal-content {
+    width: 95%;
+    max-width: 500px;
+  }
 }
 
 .budget-head {

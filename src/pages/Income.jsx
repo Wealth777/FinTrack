@@ -280,13 +280,13 @@ export default function Income() {
                       <td data-label="Date">{income.date ? new Date(income.date).toLocaleDateString() : '-'}</td>
                       <td data-label="Title">{income.title || '-'}</td>
                       <td data-label="Source">{income.source || '-'}</td>
-                      <td data-label="Amount">{income.amount != null ? Number(income.amount).toLocaleString() : '-'}</td>
+                      <td data-label="Amount">#{income.amount != null ? Number(income.amount).toLocaleString() : '-'}</td>
                       <td data-label="Description">{income.description || '-'}</td>
                       <td data-label="Actions" className='now'>
                         <button className='btnStyle' onClick={() => openEditModal(income)} title="Edit">
                           <FaPencilAlt />
                         </button>
-                        <button className='btnStyle' onClick={() => handleDelete(income.slug)} title="Delete">
+                        <button className='btnDelete' onClick={() => handleDelete(income.slug)} title="Delete">
                           <FaTrashAlt />
                         </button>
                       </td>
@@ -304,10 +304,10 @@ export default function Income() {
       )}
 
       {modalOpen && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="budget-modal">
+          <div className="budget-modal-content">
             <h2>{editIncome ? 'Edit Income' : 'Add Income'}</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='budget-form'>
               <input
                 type="text"
                 name="title"
@@ -351,7 +351,7 @@ export default function Income() {
                 </button>
                 <button
                   type="button"
-                  className='btnothe'
+                  className='btnclose'
                   onClick={() => {
                     setModalOpen(false);
                     setEditIncome(null);

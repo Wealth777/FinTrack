@@ -3,8 +3,10 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background-color: #f5f5f5;
+  background-color: var(--secondary-bg);
+  color: var(--text-primary);
   min-height: 100vh;
+  transition: all 0.3s ease;
 }
 
 .income-header {
@@ -22,8 +24,15 @@
 .income-filters input {
   padding: 8px 12px;
   border-radius: 6px;
-  border: 1px solid #ccc;
-  background-color: #fff;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.income-filters input:focus {
+  border-color: var(--accent-green);
+  box-shadow: 0 0 8px rgba(21, 255, 0, 0.2);
 }
 
 .btnothe {
@@ -31,41 +40,99 @@
   max-width: 100px;
   padding: 8px;
   background: linear-gradient(180deg, #15ff00 0%, #18ff37 100%);
-  color: white;
+  color: #000;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-size: .9rem;
-  transition: background 0.3s ease;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(21, 255, 0, 0.2);
 }
 
 .btnothe:hover, .btnStyle:hover, .btnStyles:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(21, 255, 0, 0.3);
   opacity: 0.5;
+}
+
+.btnclose{
+  width: auto;
+  max-width: 100px;
+  padding: 8px;
+  background: red;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: .9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(233, 23, 8, 0.3);
+}
+
+.btnclose:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(233, 23, 8, 0.3);
 }
 
 .btnStyle {
   width: auto;
-  max-width: 200px;
-  padding: 12px;
-  background: none;
-  color: #222;
-  border: none;
+  max-width: 100px;
+  padding: 7px;
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.btnStyle:hover {
+  background: var(--accent-green);
+  color: #000;
+  border-color: var(--accent-green);
+}
+
+.btnDelete {
+  width: auto;
+  max-width: 100px;
+  padding: 7px;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
   cursor: pointer;
   font-size: 1.2rem;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+}
+
+.btnDelete:hover {
+  background: red !important;
+  color: #000;
+  border-color: red;
+  transform: translateY(-2px);
 }
 
 .btnStyles {
   width: auto;
   max-width: 200px;
   padding: 12px;
-  background: #fff;
-  color: #222;
-  border: none;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   cursor: pointer;
   font-size: 1.2rem;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.btnStyles:hover {
+  background: var(--accent-green);
+  color: #000;
+  border-color: var(--accent-green);
 }
 
 .income-table {
@@ -75,25 +142,41 @@
 .income-table table {
   width: 100%;
   border-collapse: collapse;
-  background: #fff;
+  background: var(--card-bg);
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px var(--shadow);
+  border: 1px solid var(--border-color);
 }
 
 .income-table th,
 .income-table td {
   padding: 12px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
 }
 
 .income-table th {
   background: linear-gradient(180deg, #15ff00 0%, #24a836 100%);
-  color: #fff;
+  color: #000;
   position: sticky;
   top: 0;
   z-index: 2;
+  font-weight: 600;
 }
+
+.income-table tr:hover{
+  background-color: var(--table-hover);
+}
+
+.income-table td[colspan="5"] {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 2rem 0;
+  font-style: italic;
+  font-weight: 600;
+}
+
 
 .modal {
   position: fixed;
@@ -101,7 +184,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -109,11 +192,13 @@
 }
 
 .modal-content {
-  background: #fff;
+  background: var(--card-bg);
   padding: 20px;
   border-radius: 12px;
   width: 100%;
   max-width: 500px;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
 }
 
 @media (max-width: 600px) {
@@ -128,10 +213,10 @@
 
   .income-table tr {
     margin-bottom: 12px;
-    border: 1px solid rgba(0,0,0,0.06);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 12px;
-    background: #fff;
+    background: var(--card-bg);
   }
 
   .income-table td {
@@ -143,7 +228,7 @@
     content: attr(data-label);
     display: block;
     font-weight: 700;
-    color: #333;
+    color: var(--accent-green-light);
     margin-bottom: 6px;
     font-size: 0.9rem;
   }
@@ -240,7 +325,17 @@
 .modal-content textarea {
   padding: 8px 12px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-family: inherit;
+}
+
+.modal-content input:focus,
+.modal-content textarea:focus {
+  border-color: var(--accent-green);
+  outline: none;
+  box-shadow: 0 0 8px rgba(21, 255, 0, 0.2);
 }
 
 .modal-actions {
@@ -251,7 +346,7 @@
 
 .income-table td[colspan="6"] {
   text-align: center;
-  color: #666;
+  color: var(--text-secondary);
   padding: 2rem 0;
   font-style: italic;
   font-weight: 600;
@@ -270,8 +365,8 @@
 .income-spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid #ddd;
-  border-top-color: #15ff00;
+  border: 4px solid var(--border-color);
+  border-top-color: var(--accent-green);
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
   justify-content: center;

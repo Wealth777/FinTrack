@@ -1,9 +1,11 @@
 /* expenses.css */
 .expenses-page {
   padding: 20px;
-  background-color: #f8f9fa;
+  background-color: var(--secondary-bg);
+  color: var(--text-primary);
   min-height: 100vh;
   font-family: Arial, sans-serif;
+  transition: all 0.3s ease;
 }
 
 .expenses-header {
@@ -15,37 +17,45 @@
 
 .expenses-header h1 {
   font-size: 28px;
-  color: #111;
+  color: var(--text-primary);
 }
 
 .btn-blue {
   background: linear-gradient(180deg, #15ff00 0%, #18ff37 100%);
-  border: none;
-  color: #fff;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s ease;
-  width: 130px!important;
-  max-width: 300px !important;
-  height: 45px;
-}
-
-.btn-edit {
-  background: none;
   border: none;
   color: #000;
   padding: 8px 14px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  width: 130px!important;
+  max-width: 300px !important;
+  height: 45px;
+  box-shadow: 0 4px 10px rgba(21, 255, 0, 0.2);
+}
+
+.btn-blue:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(21, 255, 0, 0.3);
+}
+
+.btn-edit {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
   margin-left: 20px;
 }
 
-.btn-blue:hover, .btn-edit:hover{
-  opacity: 0.5;
+.btn-edit:hover {
+  background: var(--accent-green);
+  color: #000;
+  border-color: var(--accent-green);
 }
 
 .btn-editt {
@@ -74,22 +84,32 @@
 .expenses-filters input {
   padding: 6px 10px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
+  background: var(--input-bg);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.expenses-filters input:focus {
+  border-color: var(--accent-green);
+  box-shadow: 0 0 8px rgba(21, 255, 0, 0.2);
 }
 
 .expenses-table table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #fff;
+  background-color: var(--card-bg);
   border-radius: 8px;
   overflow: hidden;
+  border: 1px solid var(--border-color);
 }
 
 .expenses-table th,
 .expenses-table td {
   padding: 12px 10px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
 }
 
 .expenses-table table {
@@ -107,16 +127,25 @@
 
 .expenses-table th {
   background: linear-gradient(180deg, #15ff00 0%, #24a836 100%);
-  color: #fff;
+  color: #000;
+  font-weight: 600;
 }
 
 .expenses-table tr:hover {
-  background-color: #f1f1f1;
+  background-color: var(--table-hover);
 }
 
 .expenses-table td[colspan="6"] {
   text-align: center;
-  color: #666;
+  color: var(--text-secondary);
+  padding: 2rem 0;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.expenses-table td[colspan="5"] {
+  text-align: center;
+  color: var(--text-secondary);
   padding: 2rem 0;
   font-style: italic;
   font-weight: 600;
@@ -128,7 +157,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0,0,0,0.7);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -136,18 +165,20 @@
 }
 
 .modal-content {
-  background-color: #fff;
+  background-color: var(--card-bg);
   padding: 25px;
   border-radius: 10px;
   width: 400px;
   max-width: 90%;
   position: relative;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
 }
 
 .modal-content h2 {
   margin-bottom: 15px;
   font-size: 22px;
-  color: #111;
+  color: var(--text-primary);
 }
 
 .modal-content input,
@@ -156,7 +187,17 @@
   padding: 8px 10px;
   margin-bottom: 10px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-family: inherit;
+}
+
+.modal-content input:focus,
+.modal-content textarea:focus {
+  border-color: var(--accent-green);
+  outline: none;
+  box-shadow: 0 0 8px rgba(21, 255, 0, 0.2);
 }
 
 .modal-content textarea {
