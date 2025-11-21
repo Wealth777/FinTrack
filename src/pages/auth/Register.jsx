@@ -89,7 +89,8 @@ export default function Register() {
           </div>
 
           <div className="form-section">
-            <h2>FinTrack</h2>
+            <h2> Unilesa</h2>
+            <h2> Student FinTrack</h2>
             <h2>Register Now</h2>
             <p>Start tracking your finances easily and smartly.</p>
 
@@ -162,7 +163,7 @@ export default function Register() {
               </button>
 
               <p className="login-link">
-                Already have an account?<Link to={'/signin'}>Sign In</Link>
+                Already have an account?<Link to={'/signin'} className="Link">Sign In</Link>
               </p>
             </form>
           </div>

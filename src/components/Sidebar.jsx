@@ -6,6 +6,7 @@ import {
   FaWallet, FaChartLine, FaBell, FaCog, FaBars, FaTimes
 } from "react-icons/fa";
 import "../styles/components/Sidenav.css";
+import LogoIMG from '../assets/20250219_203324.png'
 
 export default function SideNav({ isExpanded, setIsExpanded }) {
 
@@ -14,7 +15,7 @@ export default function SideNav({ isExpanded, setIsExpanded }) {
       setIsExpanded(false);
     }
 
-    if (window.innerWidth <= 900){
+    if (window.innerWidth <= 900) {
       setIsExpanded(false)
     }
   }, []);
@@ -44,23 +45,38 @@ export default function SideNav({ isExpanded, setIsExpanded }) {
       <div className="nav-header">
         <AnimatePresence>
           {isExpanded && (
-            <motion.h2
-              className="logo"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              FinTrack
-            </motion.h2>
+            <motion.img
+              src={LogoIMG}
+              alt="FinTrack Logo"
+              className="logo-img"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+            />
           )}
         </AnimatePresence>
+        <div>
+          <AnimatePresence>
+            <br />
+            {isExpanded && (
+              <motion.h2
+                className="logo"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                Student FinTrack
+              </motion.h2>
+            )}
+          </AnimatePresence>
 
-        <button
-          className="toggle-btn"
-          onClick={() => setIsExpanded(!isExpanded)}
-        >
-          {isExpanded ? <FaTimes /> : <FaBars />}
-        </button>
+          <button
+            className="toggle-btn"
+            onClick={() => setIsExpanded(!isExpanded)}
+          >
+            {isExpanded ? <FaTimes /> : <FaBars />}
+          </button>
+        </div>
       </div>
 
       <ul className="nav flex-column">
@@ -97,6 +113,6 @@ export default function SideNav({ isExpanded, setIsExpanded }) {
           </motion.li>
         ))}
       </ul>
-    </motion.nav>
+    </motion.nav >
   );
 }
